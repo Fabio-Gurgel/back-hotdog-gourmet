@@ -1,5 +1,5 @@
 package com.example.backhotdoggourmet.promocao;
 
-public class promocaoController {
+public class PromocaoController {
     
 }

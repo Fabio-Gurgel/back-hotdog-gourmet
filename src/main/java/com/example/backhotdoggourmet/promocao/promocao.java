@@ -1,5 +1,5 @@
 package com.example.backhotdoggourmet.promocao;
 
-public class promocao {
+public class Promocao {
     
 }
