@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
 
+@Service
 public class IngredienteService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class IngredienteService {
         Optional<Ingrediente> ingredienteEncontrado = ingredienteRepository.findById(id);
 
         if(ingredienteEncontrado.isEmpty()){
-            throw new ResourceNotFoundException("Não foi possível encontrar o centro de custo com id " + id);
+            throw new ResourceNotFoundException("Não foi possível encontrar o ingrediente com id " + id);
         }
 
         return ingredienteEncontrado.get();

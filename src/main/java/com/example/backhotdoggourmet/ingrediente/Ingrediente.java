@@ -21,6 +21,9 @@ public class Ingrediente {
         this.preco = preco;
     }
 
+    public Ingrediente() {
+    }
+
     public Long getId() {
         return id;
     }
