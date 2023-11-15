@@ -33,8 +33,8 @@ public class IngredienteService {
 
     public Ingrediente createIngrediente(Ingrediente ingrediente) {
 
-        if (ingrediente.getPreco() < 0) {
-            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo.");
+        if (ingrediente.getPreco() == null || ingrediente.getPreco() < 0) {
+            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo ou nulo.");
         }
 
         if (ingredienteRepository.findByNome(ingrediente.getNome()) != null) {
@@ -46,8 +46,8 @@ public class IngredienteService {
 
     public Ingrediente updateIngrediente(Long id, Ingrediente ingrediente) {
 
-        if (ingrediente.getPreco() < 0) {
-            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo.");
+        if (ingrediente.getPreco() == null || ingrediente.getPreco() < 0) {
+            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo ou nulo.");
         }
 
         Ingrediente ingredienteExistente = getIngredienteById(id);
