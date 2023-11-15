@@ -41,6 +41,13 @@ public class IngredienteService {
     public Ingrediente updateIngrediente(Long id, Ingrediente ingrediente) {
         Ingrediente ingredienteExistente = getIngredienteById(id);
 
+        if (!ingredienteExistente.getNome().equals(ingrediente.getNome())) {
+            Ingrediente ingredienteComMesmoNome = ingredienteRepository.findByNome(ingrediente.getNome());
+            if (ingredienteComMesmoNome != null) {
+                throw new ResourceBadRequestException("Já existe um ingrediente com esse mesmo nome.");
+            }
+        }
+
         ingredienteExistente.setNome(ingrediente.getNome());
         ingredienteExistente.setPreco(ingrediente.getPreco());
 

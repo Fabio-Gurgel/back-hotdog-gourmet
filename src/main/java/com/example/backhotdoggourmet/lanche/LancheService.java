@@ -64,6 +64,13 @@ public class LancheService {
     public Lanche updateLanche(Long id, Lanche lanche) {
         Lanche lancheExistente = getLancheById(id);
 
+        if (!lancheExistente.getNome().equals(lanche.getNome())) {
+            Lanche lancheComMesmoNome = lancheRepository.findByNome(lanche.getNome());
+            if (lancheComMesmoNome != null) {
+                throw new ResourceBadRequestException("Já existe um lanche com esse mesmo nome.");
+            }
+        }
+
         double precoDoLanche = 0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
 

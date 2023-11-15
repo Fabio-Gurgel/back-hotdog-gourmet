@@ -41,6 +41,13 @@ public class PromocaoService {
     public Promocao updatePromocao(Long id, Promocao promocao) {
         Promocao promocaoExistente = getPromocaoById(id);
 
+        if (!promocaoExistente.getNome().equals(promocao.getNome())) {
+            Promocao promocaoComMesmoNome = promocaoRepository.findByNome(promocao.getNome());
+            if (promocaoComMesmoNome != null) {
+                throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
+            }
+        }
+
         promocaoExistente.setNome(promocao.getNome());
         promocaoExistente.setDescricao(promocao.getDescricao());
         promocaoExistente.setPreco(promocao.getPreco());
