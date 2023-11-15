@@ -1,5 +1,7 @@
 package com.example.backhotdoggourmet.promocao;
 
+import java.util.List;
+
 import com.example.backhotdoggourmet.lanche.Lanche;
 
 import jakarta.persistence.Column;
@@ -8,7 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Promocao {
@@ -24,16 +26,16 @@ public class Promocao {
 
     private double preco;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "lanche_id")
-    private Lanche lanche;
+    private List<Lanche> lanches;
 
-    public Promocao(long id, String nome, String descricao, double preco, Lanche lanche) {
+    public Promocao(long id, String nome, String descricao, double preco, List<Lanche> lanche) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.lanche = lanche;
+        this.lanches = lanche;
     }
 
     public Promocao() {
@@ -71,12 +73,12 @@ public class Promocao {
         this.preco = preco;
     }
 
-    public Lanche getLanche() {
-        return lanche;
+    public List<Lanche> getLanches() {
+        return lanches;
     }
 
-    public void setLanche(Lanche lanche) {
-        this.lanche = lanche;
+    public void setLanches(List<Lanche> lanches) {
+        this.lanches = lanches;
     }
 
 }

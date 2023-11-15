@@ -1,5 +1,6 @@
 package com.example.backhotdoggourmet.promocao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.backhotdoggourmet.exceptions.ResourceBadRequestException;
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
+import com.example.backhotdoggourmet.ingrediente.Ingrediente;
 import com.example.backhotdoggourmet.lanche.Lanche;
 import com.example.backhotdoggourmet.lanche.LancheService;
 
@@ -35,8 +37,9 @@ public class PromocaoService {
     }
 
     public Promocao createPromocao(Promocao promocao) {
+        List<Lanche> lanchesDaPromocao = new ArrayList<>();
 
-        if (promocao.getLanche() == null) {
+        if (promocao.getLanches().isEmpty()) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
@@ -48,14 +51,19 @@ public class PromocaoService {
             throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
         }
 
-        Lanche lancheEncontrado = lancheService.getLancheById(promocao.getLanche().getId());
-        promocao.setLanche(lancheEncontrado);
+        for(Lanche lanche : promocao.getLanches()) {
+            lanchesDaPromocao.add(lancheService.getLancheById(lanche.getId()));
+        }
+
+        promocao.setLanches(lanchesDaPromocao);
 
         return promocaoRepository.save(promocao);
     }
 
     public Promocao updatePromocao(Long id, Promocao promocao) {
-        if (promocao.getLanche() == null) {
+        List<Lanche> lanchesDaPromocao = new ArrayList<>();
+
+        if (promocao.getLanches().isEmpty()) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
@@ -72,12 +80,14 @@ public class PromocaoService {
             }
         }
 
-        Lanche lancheEncontrado = lancheService.getLancheById(promocao.getLanche().getId());
+        for(Lanche lanche : promocao.getLanches()) {
+            lanchesDaPromocao.add(lancheService.getLancheById(lanche.getId()));
+        }
 
         promocaoExistente.setNome(promocao.getNome());
         promocaoExistente.setDescricao(promocao.getDescricao());
         promocaoExistente.setPreco(promocao.getPreco());
-        promocaoExistente.setLanche(lancheEncontrado);
+        promocaoExistente.setLanches(lanchesDaPromocao);
 
         return promocaoRepository.save(promocaoExistente);
     }
