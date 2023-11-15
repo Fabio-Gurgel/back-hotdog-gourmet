@@ -8,12 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.backhotdoggourmet.exceptions.ResourceBadRequestException;
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
+import com.example.backhotdoggourmet.lanche.Lanche;
+import com.example.backhotdoggourmet.lanche.LancheService;
 
 @Service
 public class PromocaoService {
 
     @Autowired
     PromocaoRepository promocaoRepository;
+
+    @Autowired
+    LancheService lancheService;
 
     public List<Promocao> getAllPromocoes() {
         return promocaoRepository.findAll();
@@ -39,10 +44,17 @@ public class PromocaoService {
             throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
         }
 
+        Lanche lancheEncontrado = lancheService.getLancheById(promocao.getLanche().getId());
+        promocao.setLanche(lancheEncontrado);
+
         return promocaoRepository.save(promocao);
     }
 
     public Promocao updatePromocao(Long id, Promocao promocao) {
+        if(promocao.getLanche() == null) {
+            throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
+        }
+
         Promocao promocaoExistente = getPromocaoById(id);
 
         if (!promocaoExistente.getNome().equals(promocao.getNome())) {
@@ -52,10 +64,12 @@ public class PromocaoService {
             }
         }
 
+        Lanche lancheEncontrado = lancheService.getLancheById(promocao.getLanche().getId());
+
         promocaoExistente.setNome(promocao.getNome());
         promocaoExistente.setDescricao(promocao.getDescricao());
         promocaoExistente.setPreco(promocao.getPreco());
-        promocaoExistente.setLanche(promocao.getLanche());
+        promocaoExistente.setLanche(lancheEncontrado);
 
         return promocaoRepository.save(promocaoExistente);
     }

@@ -62,6 +62,10 @@ public class LancheService {
     }
 
     public Lanche updateLanche(Long id, Lanche lanche) {
+        if(lanche.getIngredientes().isEmpty()) {
+            throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
+        }
+        
         Lanche lancheExistente = getLancheById(id);
 
         if (!lancheExistente.getNome().equals(lanche.getNome())) {
@@ -73,10 +77,6 @@ public class LancheService {
 
         double precoDoLanche = 0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
-
-        if(lanche.getIngredientes().isEmpty()) {
-            throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
-        }
 
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
