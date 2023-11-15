@@ -16,9 +16,9 @@ public class Ingrediente {
     @Column(unique = true)
     private String nome;
 
-    private double preco;
+    private Double preco;
 
-    public Ingrediente(Long id, String nome, double preco) {
+    public Ingrediente(Long id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -43,11 +43,11 @@ public class Ingrediente {
         this.nome = nome;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }

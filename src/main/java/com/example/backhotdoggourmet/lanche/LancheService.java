@@ -36,7 +36,7 @@ public class LancheService {
     }
 
     public Lanche createLanche(Lanche lanche) {
-        double precoDoLanche = 0;
+        Double precoDoLanche = 0.0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
 
         if (lanche.getIngredientes().isEmpty()) {
@@ -75,7 +75,7 @@ public class LancheService {
             }
         }
 
-        double precoDoLanche = 0;
+        Double precoDoLanche = 0.0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
 
         for (Ingrediente ingrediente : lanche.getIngredientes()) {

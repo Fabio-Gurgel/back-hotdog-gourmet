@@ -23,13 +23,13 @@ public class Lanche {
     @Column(unique = true)
     private String nome;
 
-    private double preco;
+    private Double preco;
 
     @ManyToMany
     @JoinTable(name = "lanche_ingrediente", joinColumns = @JoinColumn(name = "lanche_id"), inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
     private List<Ingrediente> ingredientes;
 
-    public Lanche(Long id, String nome, double preco, List<Ingrediente> ingredientes) {
+    public Lanche(Long id, String nome, Double preco, List<Ingrediente> ingredientes) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -55,11 +55,11 @@ public class Lanche {
         this.nome = nome;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
