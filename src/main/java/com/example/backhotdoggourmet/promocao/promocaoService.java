@@ -44,7 +44,7 @@ public class PromocaoService {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
-        for(Lanche lanche : promocao.getLanches()) {
+        for (Lanche lanche : promocao.getLanches()) {
             lanchesDaPromocao.add(lancheService.getLancheById(lanche.getId()));
         }
 
@@ -54,10 +54,10 @@ public class PromocaoService {
             for (Lanche lanche : promocao.getLanches()) {
                 precoDaPromocao += lanche.getPreco();
             }
-        
+
             if (promocao.getPercentualDesconto() != null) {
                 Double descontoEmReais = precoDaPromocao * (promocao.getPercentualDesconto() / 100.0);
-        
+
                 precoDaPromocao -= descontoEmReais;
             }
         } else {
@@ -65,18 +65,17 @@ public class PromocaoService {
 
             if (promocao.getPercentualDesconto() != null) {
                 Double descontoEmReais = precoDaPromocao * (promocao.getPercentualDesconto() / 100.0);
-        
+
                 precoDaPromocao -= descontoEmReais;
             }
         }
-        
+
         promocao.setPreco(precoDaPromocao);
-        
 
         if (promocao.getPreco() < 0) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção com preço negativo.");
         }
-        
+
         if (promocaoRepository.findByNome(promocao.getNome()) != null) {
             throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
         }
@@ -92,7 +91,7 @@ public class PromocaoService {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
-        for(Lanche lanche : promocao.getLanches()) {
+        for (Lanche lanche : promocao.getLanches()) {
             lanchesDaPromocao.add(lancheService.getLancheById(lanche.getId()));
         }
 
@@ -102,10 +101,10 @@ public class PromocaoService {
             for (Lanche lanche : promocao.getLanches()) {
                 precoDaPromocao += lanche.getPreco();
             }
-        
+
             if (promocao.getPercentualDesconto() != null) {
                 Double descontoEmReais = precoDaPromocao * (promocao.getPercentualDesconto() / 100.0);
-        
+
                 precoDaPromocao -= descontoEmReais;
             }
         } else {
@@ -113,13 +112,12 @@ public class PromocaoService {
 
             if (promocao.getPercentualDesconto() != null) {
                 Double descontoEmReais = precoDaPromocao * (promocao.getPercentualDesconto() / 100.0);
-        
+
                 precoDaPromocao -= descontoEmReais;
             }
         }
-        
-        promocao.setPreco(precoDaPromocao);
 
+        promocao.setPreco(precoDaPromocao);
 
         if (promocao.getPreco() < 0) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção com preço negativo.");
