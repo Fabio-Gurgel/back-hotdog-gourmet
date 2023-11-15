@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.backhotdoggourmet.exceptions.ResourceBadRequestException;
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
 import com.example.backhotdoggourmet.ingrediente.Ingrediente;
 import com.example.backhotdoggourmet.ingrediente.IngredienteService;
@@ -28,7 +29,7 @@ public class LancheService {
         Optional<Lanche> lancheEncontrado = lancheRepository.findById(id);
 
         if(lancheEncontrado.isEmpty()){
-            throw new ResourceNotFoundException("Não foi possível encontrar o lanche com id " + id);
+            throw new ResourceNotFoundException("Não foi possível encontrar o lanche com id " + id + ".");
         }
 
         return lancheEncontrado.get();
@@ -37,6 +38,10 @@ public class LancheService {
     public Lanche createLanche(Lanche lanche) {
         double precoDoLanche = 0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
+
+        if(lanche.getIngredientes().isEmpty()) {
+            throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
+        }
 
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
@@ -56,8 +61,11 @@ public class LancheService {
         Lanche lancheExistente = getLancheById(id);
 
         double precoDoLanche = 0;
-
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
+
+        if(lanche.getIngredientes().isEmpty()) {
+            throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
+        }
 
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));

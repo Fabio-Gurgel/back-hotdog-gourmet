@@ -22,7 +22,7 @@ public class PromocaoService {
         Optional<Promocao> promocaoEncontrada = promocaoRepository.findById(id);
 
         if(promocaoEncontrada.isEmpty()) {
-            throw new ResourceNotFoundException("Não foi possível encontrar a promoção com id " + id);
+            throw new ResourceNotFoundException("Não foi possível encontrar a promoção com id " + id + ".");
         }
 
         return promocaoEncontrada.get();

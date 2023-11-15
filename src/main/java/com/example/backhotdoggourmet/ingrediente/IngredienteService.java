@@ -22,7 +22,7 @@ public class IngredienteService {
         Optional<Ingrediente> ingredienteEncontrado = ingredienteRepository.findById(id);
 
         if(ingredienteEncontrado.isEmpty()){
-            throw new ResourceNotFoundException("Não foi possível encontrar o ingrediente com id " + id);
+            throw new ResourceNotFoundException("Não foi possível encontrar o ingrediente com id " + id + ".");
         }
 
         return ingredienteEncontrado.get();
