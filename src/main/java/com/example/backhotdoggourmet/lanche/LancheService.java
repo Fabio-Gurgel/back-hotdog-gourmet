@@ -43,6 +43,10 @@ public class LancheService {
             throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
         }
 
+        if(lancheRepository.findByNome(lanche.getNome()) != null) {
+            throw new ResourceBadRequestException("Já existe um lanche com esse mesmo nome.");
+        }
+
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
         }

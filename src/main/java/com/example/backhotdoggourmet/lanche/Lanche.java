@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.backhotdoggourmet.ingrediente.Ingrediente;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,9 @@ public class Lanche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
+    
     private double preco;
 
     @ManyToMany

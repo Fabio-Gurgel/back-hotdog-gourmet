@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.backhotdoggourmet.exceptions.ResourceBadRequestException;
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
 
 @Service
@@ -29,6 +30,11 @@ public class IngredienteService {
     }
 
     public Ingrediente createIngrediente(Ingrediente ingrediente) {
+
+        if(ingredienteRepository.findByNome(ingrediente.getNome()) != null) {
+            throw new ResourceBadRequestException("Já existe um ingrediente com esse mesmo nome.");
+        }
+
         return ingredienteRepository.save(ingrediente);
     }
 

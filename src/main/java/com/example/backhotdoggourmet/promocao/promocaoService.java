@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.backhotdoggourmet.exceptions.ResourceBadRequestException;
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
 
 @Service
@@ -29,6 +30,11 @@ public class PromocaoService {
     }
 
     public Promocao createPromocao(Promocao promocao) {
+
+        if(promocaoRepository.findByNome(promocao.getNome()) != null) {
+            throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
+        }
+
         return promocaoRepository.save(promocao);
     }
 

@@ -1,5 +1,6 @@
 package com.example.backhotdoggourmet.ingrediente;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,9 @@ public class Ingrediente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
+    
     private double preco;
 
     public Ingrediente(Long id, String nome, double preco) {

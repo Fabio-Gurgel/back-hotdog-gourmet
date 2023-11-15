@@ -2,6 +2,7 @@ package com.example.backhotdoggourmet.promocao;
 
 import com.example.backhotdoggourmet.lanche.Lanche;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Promocao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String nome;
 
     private String descricao;
