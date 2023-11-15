@@ -34,6 +34,9 @@ public class Promocao {
         this.lanche = lanche;
     }
 
+    public Promocao() {
+    }
+
     public long getId() {
         return id;
     }

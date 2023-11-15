@@ -36,6 +36,9 @@ public class Lanche {
         this.ingredientes = ingredientes;
     }
 
+    public Lanche() {
+    }
+
     public Long getId() {
         return id;
     }
