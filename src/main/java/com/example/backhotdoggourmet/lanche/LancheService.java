@@ -57,6 +57,14 @@ public class LancheService {
 
         double precoDoLanche = 0;
 
+        List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
+
+        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+            ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
+        }
+
+        lanche.setIngredientes(ingredientesDoLanche);
+
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             precoDoLanche += ingrediente.getPreco();
         }
