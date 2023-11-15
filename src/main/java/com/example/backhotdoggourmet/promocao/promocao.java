@@ -24,18 +24,22 @@ public class Promocao {
 
     private String descricao;
 
-    private double preco;
+    private Double preco;
+
+    private Double percentualDesconto;
 
     @OneToMany
     @JoinColumn(name = "lanche_id")
     private List<Lanche> lanches;
 
-    public Promocao(long id, String nome, String descricao, double preco, List<Lanche> lanche) {
+    public Promocao(long id, String nome, String descricao, Double preco, Double percentualDesconto,
+            List<Lanche> lanches) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.lanches = lanche;
+        this.percentualDesconto = percentualDesconto;
+        this.lanches = lanches;
     }
 
     public Promocao() {
@@ -65,11 +69,11 @@ public class Promocao {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
@@ -79,6 +83,14 @@ public class Promocao {
 
     public void setLanches(List<Lanche> lanches) {
         this.lanches = lanches;
+    }
+
+    public Double getPercentualDesconto() {
+        return percentualDesconto;
+    }
+
+    public void setPercentualDesconto(Double percentualDesconto) {
+        this.percentualDesconto = percentualDesconto;
     }
 
 }
