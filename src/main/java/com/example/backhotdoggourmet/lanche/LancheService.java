@@ -1,5 +1,6 @@
 package com.example.backhotdoggourmet.lanche;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
 import com.example.backhotdoggourmet.ingrediente.Ingrediente;
+import com.example.backhotdoggourmet.ingrediente.IngredienteService;
 
 @Service
 public class LancheService {
     
     @Autowired
     LancheRepository lancheRepository;
+
+    @Autowired
+    IngredienteService ingredienteService;
 
     public List<Lanche> getAllLanches() {
         return lancheRepository.findAll();
@@ -31,6 +36,13 @@ public class LancheService {
 
     public Lanche createLanche(Lanche lanche) {
         double precoDoLanche = 0;
+        List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
+
+        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+            ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
+        }
+
+        lanche.setIngredientes(ingredientesDoLanche);
 
         for(Ingrediente ingrediente : lanche.getIngredientes()) {
             precoDoLanche += ingrediente.getPreco();
