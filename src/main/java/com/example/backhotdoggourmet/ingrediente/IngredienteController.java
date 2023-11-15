@@ -28,20 +28,20 @@ public class IngredienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Ingrediente> getIngredienteById(@PathVariable Long id) {
-        Ingrediente ingrediente = ingredienteService.getIngredienteById(id);
-        return ResponseEntity.ok(ingrediente);
+        Ingrediente ingredienteEncontrado = ingredienteService.getIngredienteById(id);
+        return ResponseEntity.ok(ingredienteEncontrado);
     }
 
     @PostMapping
     public ResponseEntity<Ingrediente> createIngrediente(@RequestBody Ingrediente ingrediente) {
-        Ingrediente createdIngrediente = ingredienteService.createIngrediente(ingrediente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdIngrediente);
+        Ingrediente ingredienteCriado = ingredienteService.createIngrediente(ingrediente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ingredienteCriado);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Ingrediente> updateIngrediente(@PathVariable Long id, @RequestBody Ingrediente ingrediente) {
-        Ingrediente updatedIngrediente = ingredienteService.updateIngrediente(id, ingrediente);
-        return ResponseEntity.ok(updatedIngrediente);
+        Ingrediente ingredienteEditado = ingredienteService.updateIngrediente(id, ingrediente);
+        return ResponseEntity.ok(ingredienteEditado);
     }
 
     @DeleteMapping("/{id}")
