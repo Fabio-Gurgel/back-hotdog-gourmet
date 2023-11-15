@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.backhotdoggourmet.exceptions.ResourceNotFoundException;
+import com.example.backhotdoggourmet.ingrediente.Ingrediente;
 
 @Service
 public class LancheService {
@@ -29,14 +30,27 @@ public class LancheService {
     }
 
     public Lanche createLanche(Lanche lanche) {
+        double precoDoLanche = 0;
+
+        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+            precoDoLanche += ingrediente.getPreco();
+        }
+        lanche.setPreco(precoDoLanche);
+        
         return lancheRepository.save(lanche);
     }
 
     public Lanche updateLanche(Long id, Lanche lanche) {
         Lanche lancheExistente = getLancheById(id);
 
+        double precoDoLanche = 0;
+
+        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+            precoDoLanche += ingrediente.getPreco();
+        }
+
         lancheExistente.setNome(lanche.getNome());
-        lancheExistente.setPreco(lanche.getPreco());
+        lancheExistente.setPreco(precoDoLanche);
         lancheExistente.setIngredientes(lanche.getIngredientes());
 
         return lancheRepository.save(lancheExistente);
