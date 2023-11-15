@@ -15,7 +15,7 @@ public class Ingrediente {
 
     @Column(unique = true)
     private String nome;
-    
+
     private double preco;
 
     public Ingrediente(Long id, String nome, double preco) {

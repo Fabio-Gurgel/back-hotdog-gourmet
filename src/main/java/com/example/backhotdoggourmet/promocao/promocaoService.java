@@ -27,7 +27,7 @@ public class PromocaoService {
     public Promocao getPromocaoById(Long id) {
         Optional<Promocao> promocaoEncontrada = promocaoRepository.findById(id);
 
-        if(promocaoEncontrada.isEmpty()) {
+        if (promocaoEncontrada.isEmpty()) {
             throw new ResourceNotFoundException("Não foi possível encontrar a promoção com id " + id + ".");
         }
 
@@ -36,15 +36,15 @@ public class PromocaoService {
 
     public Promocao createPromocao(Promocao promocao) {
 
-        if(promocao.getLanche() == null) {
+        if (promocao.getLanche() == null) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
-        if(promocao.getPreco() < 0) {
+        if (promocao.getPreco() < 0) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção com preço negativo.");
         }
 
-        if(promocaoRepository.findByNome(promocao.getNome()) != null) {
+        if (promocaoRepository.findByNome(promocao.getNome()) != null) {
             throw new ResourceBadRequestException("Já existe uma promoção com esse mesmo nome.");
         }
 
@@ -55,11 +55,11 @@ public class PromocaoService {
     }
 
     public Promocao updatePromocao(Long id, Promocao promocao) {
-        if(promocao.getLanche() == null) {
+        if (promocao.getLanche() == null) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção sem informar o lanche.");
         }
 
-        if(promocao.getPreco() < 0) {
+        if (promocao.getPreco() < 0) {
             throw new ResourceBadRequestException("Não é possível criar uma promoção com preço negativo.");
         }
 
@@ -86,5 +86,5 @@ public class PromocaoService {
         getPromocaoById(id);
         promocaoRepository.deleteById(id);
     }
-    
+
 }

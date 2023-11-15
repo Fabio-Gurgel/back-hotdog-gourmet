@@ -14,7 +14,7 @@ import com.example.backhotdoggourmet.ingrediente.IngredienteService;
 
 @Service
 public class LancheService {
-    
+
     @Autowired
     LancheRepository lancheRepository;
 
@@ -28,7 +28,7 @@ public class LancheService {
     public Lanche getLancheById(Long id) {
         Optional<Lanche> lancheEncontrado = lancheRepository.findById(id);
 
-        if(lancheEncontrado.isEmpty()){
+        if (lancheEncontrado.isEmpty()) {
             throw new ResourceNotFoundException("Não foi possível encontrar o lanche com id " + id + ".");
         }
 
@@ -39,33 +39,33 @@ public class LancheService {
         double precoDoLanche = 0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
 
-        if(lanche.getIngredientes().isEmpty()) {
+        if (lanche.getIngredientes().isEmpty()) {
             throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
         }
 
-        if(lancheRepository.findByNome(lanche.getNome()) != null) {
+        if (lancheRepository.findByNome(lanche.getNome()) != null) {
             throw new ResourceBadRequestException("Já existe um lanche com esse mesmo nome.");
         }
 
-        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+        for (Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
         }
 
         lanche.setIngredientes(ingredientesDoLanche);
 
-        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+        for (Ingrediente ingrediente : lanche.getIngredientes()) {
             precoDoLanche += ingrediente.getPreco();
         }
         lanche.setPreco(precoDoLanche);
-        
+
         return lancheRepository.save(lanche);
     }
 
     public Lanche updateLanche(Long id, Lanche lanche) {
-        if(lanche.getIngredientes().isEmpty()) {
+        if (lanche.getIngredientes().isEmpty()) {
             throw new ResourceBadRequestException("Não é possível criar um lanche sem ao menos um ingrediente.");
         }
-        
+
         Lanche lancheExistente = getLancheById(id);
 
         if (!lancheExistente.getNome().equals(lanche.getNome())) {
@@ -78,13 +78,13 @@ public class LancheService {
         double precoDoLanche = 0;
         List<Ingrediente> ingredientesDoLanche = new ArrayList<>();
 
-        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+        for (Ingrediente ingrediente : lanche.getIngredientes()) {
             ingredientesDoLanche.add(ingredienteService.getIngredienteById(ingrediente.getId()));
         }
 
         lanche.setIngredientes(ingredientesDoLanche);
 
-        for(Ingrediente ingrediente : lanche.getIngredientes()) {
+        for (Ingrediente ingrediente : lanche.getIngredientes()) {
             precoDoLanche += ingrediente.getPreco();
         }
 

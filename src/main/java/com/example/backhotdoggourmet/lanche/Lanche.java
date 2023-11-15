@@ -22,14 +22,11 @@ public class Lanche {
 
     @Column(unique = true)
     private String nome;
-    
+
     private double preco;
 
     @ManyToMany
-    @JoinTable(
-        name = "lanche_ingrediente",
-        joinColumns = @JoinColumn(name = "lanche_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
+    @JoinTable(name = "lanche_ingrediente", joinColumns = @JoinColumn(name = "lanche_id"), inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
     private List<Ingrediente> ingredientes;
 
     public Lanche(Long id, String nome, double preco, List<Ingrediente> ingredientes) {

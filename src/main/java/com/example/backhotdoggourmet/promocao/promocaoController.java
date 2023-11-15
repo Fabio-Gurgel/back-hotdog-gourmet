@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/api/promocoes")
 public class PromocaoController {
@@ -32,7 +31,7 @@ public class PromocaoController {
         Promocao promocaoEncontrada = promocaoService.getPromocaoById(id);
         return ResponseEntity.ok(promocaoEncontrada);
     }
-    
+
     @PostMapping
     public ResponseEntity<Promocao> createPromocao(@RequestBody Promocao promocao) {
         Promocao promocaoCriada = promocaoService.createPromocao(promocao);

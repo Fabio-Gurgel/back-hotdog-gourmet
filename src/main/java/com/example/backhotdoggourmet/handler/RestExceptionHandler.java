@@ -15,9 +15,9 @@ public class RestExceptionHandler {
     public ResponseEntity<ErroResposta> handlerResourceNotFoundException(ResourceNotFoundException ex) {
 
         ErroResposta erro = new ErroResposta(
-            HttpStatus.NOT_FOUND.value(), 
-            "Not Found", 
-            ex.getMessage());
+                HttpStatus.NOT_FOUND.value(),
+                "Not Found",
+                ex.getMessage());
 
         return new ResponseEntity<>(erro, HttpStatus.NOT_FOUND);
     }
@@ -26,9 +26,9 @@ public class RestExceptionHandler {
     public ResponseEntity<ErroResposta> handlerResourceBadRequestException(ResourceBadRequestException ex) {
 
         ErroResposta erro = new ErroResposta(
-            HttpStatus.BAD_REQUEST.value(), 
-            "Bad Request", 
-            ex.getMessage());
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad Request",
+                ex.getMessage());
 
         return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
     }
@@ -37,9 +37,9 @@ public class RestExceptionHandler {
     public ResponseEntity<ErroResposta> handlerRequestException(Exception ex) {
 
         ErroResposta erro = new ErroResposta(
-            HttpStatus.INTERNAL_SERVER_ERROR.value(), 
-            "Internal Server Error", 
-            ex.getMessage());
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Internal Server Error",
+                ex.getMessage());
 
         return new ResponseEntity<>(erro, HttpStatus.INTERNAL_SERVER_ERROR);
     }

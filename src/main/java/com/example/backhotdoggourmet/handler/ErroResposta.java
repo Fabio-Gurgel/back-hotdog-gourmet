@@ -1,13 +1,13 @@
 package com.example.backhotdoggourmet.handler;
 
 public class ErroResposta {
-    
+
     private Integer status;
 
     private String titulo;
 
     private String mensagem;
-    
+
     public ErroResposta(Integer status, String titulo, String mensagem) {
         this.status = status;
         this.titulo = titulo;
@@ -38,5 +38,4 @@ public class ErroResposta {
         this.mensagem = mensagem;
     }
 
-    
 }
