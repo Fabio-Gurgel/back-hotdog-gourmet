@@ -16,10 +16,12 @@ public class IngredienteService {
     private IngredienteRepository ingredienteRepository;
 
     public List<Ingrediente> getAllIngredientes() {
+        
         return ingredienteRepository.findAll();
     }
 
     public Ingrediente getIngredienteById(Long id) {
+
         Optional<Ingrediente> ingredienteEncontrado = ingredienteRepository.findById(id);
 
         if(ingredienteEncontrado.isEmpty()){
@@ -31,6 +33,10 @@ public class IngredienteService {
 
     public Ingrediente createIngrediente(Ingrediente ingrediente) {
 
+        if(ingrediente.getPreco() < 0) {
+            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo.");
+        } 
+
         if(ingredienteRepository.findByNome(ingrediente.getNome()) != null) {
             throw new ResourceBadRequestException("Já existe um ingrediente com esse mesmo nome.");
         }
@@ -39,6 +45,11 @@ public class IngredienteService {
     }
 
     public Ingrediente updateIngrediente(Long id, Ingrediente ingrediente) {
+
+        if(ingrediente.getPreco() < 0) {
+            throw new ResourceBadRequestException("Não é possível criar um ingrediente com preço negativo.");
+        }
+
         Ingrediente ingredienteExistente = getIngredienteById(id);
 
         if (!ingredienteExistente.getNome().equals(ingrediente.getNome())) {
@@ -55,6 +66,7 @@ public class IngredienteService {
     }
 
     public void deleteIngrediente(Long id) {
+
         getIngredienteById(id);
         ingredienteRepository.deleteById(id);
     }
