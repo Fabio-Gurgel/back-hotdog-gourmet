@@ -88,6 +88,36 @@ public class LancheServiceTest {
     }
 
     @Test
+    void deveDefinirOValorDoLancheAoReceberPrecoNullDuranteEdicao() {
+        lanche = new Lanche(ID, "Completo", null, ingredientes);
+    
+        when(lancheRepository.findById(ID)).thenReturn(Optional.of(lanche));
+        when(lancheRepository.save(lanche)).thenReturn(lanche);
+        when(ingredienteService.getIngredienteById(Mockito.anyLong())).thenReturn(ingrediente);
+
+        Lanche response =  lancheService.updateLanche(ID, lanche);
+
+        assertNotNull(response);
+        assertInstanceOf(Lanche.class, response);
+        assertEquals(2.5, response.getPreco());
+    }
+
+    @Test
+    void deveDefinirOValorDoLancheCorretamenteMesmoRecebendoUmValorJaDefinidoDuranteEdicao() {
+        lanche = new Lanche(ID, "Completo", 10.0, ingredientes);
+    
+        when(lancheRepository.findById(ID)).thenReturn(Optional.of(lanche));
+        when(lancheRepository.save(lanche)).thenReturn(lanche);
+        when(ingredienteService.getIngredienteById(Mockito.anyLong())).thenReturn(ingrediente);
+
+        Lanche response =  lancheService.updateLanche(ID, lanche);
+
+        assertNotNull(response);
+        assertInstanceOf(Lanche.class, response);
+        assertEquals(2.5, response.getPreco());
+    }
+
+    @Test
     void deveVerificarSeOLancheRecebeOsIngredientesCorretamente() {
         lanche = new Lanche(ID, "Completo", 10.0, ingredientes);
 
