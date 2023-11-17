@@ -36,8 +36,8 @@ public class LancheServiceTest {
     @Mock
     private IngredienteService ingredienteService;
 
-    private Lanche lanche;
-    private Ingrediente ingrediente;
+    Lanche lanche;
+    Ingrediente ingrediente;
     List<Ingrediente> ingredientes = new ArrayList<>();
 
     @BeforeEach
